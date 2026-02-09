@@ -1,0 +1,72 @@
+{
+  "name": "creem-convex",
+  "version": "0.1.0",
+  "description": "Creem payments integration for Convex — checkouts, webhooks, subscriptions with real-time reactivity",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./schema": {
+      "types": "./dist/schema.d.ts",
+      "import": "./dist/schema.js"
+    },
+    "./react": {
+      "types": "./dist/hooks/index.d.ts",
+      "import": "./dist/hooks/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "convex",
+    "creem",
+    "payments",
+    "subscriptions",
+    "merchant-of-record",
+    "webhooks",
+    "saas",
+    "billing",
+    "real-time",
+    "reactive"
+  ],
+  "author": "Manuel Reyes",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manuelreyesbr/creem-convex"
+  },
+  "peerDependencies": {
+    "convex": ">=1.0.0",
+    "react": ">=18.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.2.13",
+    "convex": "^1.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^3.0.0"
+  }
+}

@@ -1,0 +1,79 @@
+// ============================================================
+// Creem Database Schema — drop into your Convex schema
+// ============================================================
+import { defineTable } from "convex/server";
+import { v } from "convex/values";
+
+/**
+ * Creem table definitions. Spread into your schema:
+ *
+ * ```ts
+ * import { creemTables } from "creem-convex/schema";
+ *
+ * export default defineSchema({
+ *   ...creemTables,
+ *   // your other tables
+ * });
+ * ```
+ */
+export const creemTables = {
+  creem_payments: defineTable({
+    creemCheckoutId: v.string(),
+    creemOrderId: v.optional(v.string()),
+    creemCustomerId: v.optional(v.string()),
+    creemProductId: v.string(),
+    creemSubscriptionId: v.optional(v.string()),
+    amount: v.number(),
+    currency: v.string(),
+    status: v.string(), // "paid" | "pending" | "failed"
+    type: v.string(), // "one_time" | "recurring"
+    customerEmail: v.optional(v.string()),
+    customerName: v.optional(v.string()),
+    metadata: v.optional(v.any()),
+    creemCreatedAt: v.string(),
+  })
+    .index("by_checkout", ["creemCheckoutId"])
+    .index("by_customer", ["creemCustomerId"])
+    .index("by_product", ["creemProductId"])
+    .index("by_subscription", ["creemSubscriptionId"]),
+
+  creem_subscriptions: defineTable({
+    creemSubscriptionId: v.string(),
+    creemCustomerId: v.string(),
+    creemProductId: v.string(),
+    status: v.string(), // CreemSubscriptionStatus
+    customerEmail: v.optional(v.string()),
+    customerName: v.optional(v.string()),
+    currentPeriodStart: v.optional(v.string()),
+    currentPeriodEnd: v.optional(v.string()),
+    canceledAt: v.optional(v.string()),
+    metadata: v.optional(v.any()),
+    creemCreatedAt: v.string(),
+    creemUpdatedAt: v.string(),
+  })
+    .index("by_creem_id", ["creemSubscriptionId"])
+    .index("by_customer", ["creemCustomerId"])
+    .index("by_product", ["creemProductId"])
+    .index("by_status", ["status"]),
+
+  creem_customers: defineTable({
+    creemCustomerId: v.string(),
+    email: v.string(),
+    name: v.optional(v.string()),
+    country: v.optional(v.string()),
+    creemCreatedAt: v.string(),
+  })
+    .index("by_creem_id", ["creemCustomerId"])
+    .index("by_email", ["email"]),
+
+  creem_webhook_events: defineTable({
+    creemEventId: v.string(),
+    eventType: v.string(),
+    processed: v.boolean(),
+    payload: v.any(),
+    error: v.optional(v.string()),
+    creemCreatedAt: v.number(), // timestamp
+  })
+    .index("by_event_id", ["creemEventId"])
+    .index("by_type", ["eventType"]),
+};
