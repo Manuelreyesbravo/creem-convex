@@ -1,0 +1,20 @@
+{
+  "name": "creem-convex-test",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx convex dev",
+    "test:imports": "node --loader ts-node/esm test-imports.ts",
+    "test:types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "convex": "^1.0.0",
+    "creem-convex": "file:../creem-convex/creem-convex-0.1.0.tgz",
+    "react": "^19.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "ts-node": "^10.9.0"
+  }
+}
